@@ -1,0 +1,5 @@
+include GenericCache/COPYING
+include GenericCache/README
+include GenericCache/ChangeLog
+# Not a valid python module
+recursive GenericCache/tests *.py

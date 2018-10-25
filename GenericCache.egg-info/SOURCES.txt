@@ -1,0 +1,15 @@
+MANIFEST.in
+setup.py
+GenericCache/COPYING
+GenericCache/ChangeLog
+GenericCache/GenericCache.py
+GenericCache/LRUStock.py
+GenericCache/README
+GenericCache/__init__.py
+GenericCache/decorators.py
+GenericCache.egg-info/PKG-INFO
+GenericCache.egg-info/SOURCES.txt
+GenericCache.egg-info/dependency_links.txt
+GenericCache.egg-info/requires.txt
+GenericCache.egg-info/top_level.txt
+GenericCache.egg-info/zip-safe
