@@ -4,6 +4,7 @@
 ## Email : gael@pilotsystems.net
 ################################################################
 
+from __future__ import print_function
 __author__ = "gael@pilotsystems.net"
 __format__ = "plaintext"
 __version__ = "$Id: decorators.py 17 2008-08-09 16:40:26Z gael.le-mignot $"
@@ -34,13 +35,13 @@ def verbose(func):
     Decorator to print debug stuff - use it only on python >= 2.4
     """
     def verbose_func(self, *args, **kwargs):
-        print "  " * self.level, "==> Entering: %s(*%r, **%r)" % (func.__name__, args, kwargs)
+        print("  " * self.level, "==> Entering: %s(*%r, **%r)" % (func.__name__, args, kwargs))
         self.level += 1
-        print "  " * self.level, self.lru
+        print("  " * self.level, self.lru)
         res = func(self, *args, **kwargs)
-        print "  " * self.level, self.lru
+        print("  " * self.level, self.lru)
         self.level -= 1
-        print "  " * self.level, "==> Leaving %s: %r" % (func.__name__, res)
+        print("  " * self.level, "==> Leaving %s: %r" % (func.__name__, res))
         return res
     return verbose_func
 

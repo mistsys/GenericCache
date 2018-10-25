@@ -4,6 +4,8 @@
 ## Email : gael@pilotsystems.net
 ################################################################
 
+from builtins import str
+from builtins import object
 __author__ = "gael@pilotsystems.net"
 __format__ = "plaintext"
 __version__ = "$Id: LRUStock.py 9 2007-03-17 10:32:12Z gael.le-mignot $"
@@ -47,7 +49,7 @@ class LRUStock(object):
         if not item in self.keys:
             return
         node = self.keys[item]
-        node.prev.next = node.next
+        node.prev.next = node.__next__
         node.next.prev = node.prev        
         del self.keys[item]
 
@@ -66,7 +68,7 @@ class LRUStock(object):
         """
         Get the head of the list
         """
-        if self.next is self:
+        if self.__next__ is self:
             return None
         return self.next.item
 
@@ -75,8 +77,8 @@ class LRUStock(object):
         Return an iterator to the ordered stock
         """
         item = self
-        while item.next != self:
-            item = item.next
+        while item.__next__ != self:
+            item = item.__next__
             yield item.item
 
     def tolist(self):
@@ -96,10 +98,10 @@ class LRUStock(object):
             node = node.prev
         res = " <- ".join(s)
         s = []
-        node = self.next
+        node = self.__next__
         while node is not self:
             s.append(str(node.item))
-            node = node.next
+            node = node.__next__
         res += " / " + " -> ".join(s)
         return res
 
