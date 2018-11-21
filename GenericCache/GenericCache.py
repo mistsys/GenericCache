@@ -4,10 +4,6 @@
 ## Email : gael@pilotsystems.net
 ################################################################
 
-from __future__ import absolute_import
-from past.builtins import cmp
-from builtins import str
-from builtins import object
 __author__ = "gael@pilotsystems.net"
 __format__ = "plaintext"
 __version__ = "$Id: GenericCache.py 19 2009-02-26 15:15:00Z gael.le-mignot $"
@@ -15,8 +11,8 @@ __version__ = "$Id: GenericCache.py 19 2009-02-26 15:15:00Z gael.le-mignot $"
 import time
 from threading import RLock
 
-from .LRUStock import *
-from .decorators import *
+from LRUStock import *
+from decorators import *
 
 _marker = []
 
@@ -91,9 +87,9 @@ class GenericCache(dict):
             fail = self.default_fail
         
         key = str(key)
-        if key not in self.values:
+        if not self.values.has_key(key):
             if fail:
-                raise KeyError(key)
+                raise KeyError, key
             return onmissing
 
         value = self.values[key]
@@ -101,7 +97,7 @@ class GenericCache(dict):
         if self._has_expired(value):
             self.remove(key)
             if fail:
-                raise KeyError(key)
+                raise KeyError, key
             return onmissing
         self.lru.update(key)
         return value.value
@@ -174,7 +170,7 @@ class GenericCache(dict):
         Collect (remove) all obsoleted items, by default, the removal
         is done lazyly at first access
         """
-        for key in list(self.values.keys()):
+        for key in self.values.keys():
             value = self.values[key]
             # Test for expiry
             if self._has_expired(value):
@@ -197,12 +193,12 @@ class GenericCache(dict):
         """
         Get stored keys
         """
-        return [ key.key for key in list(self.values.keys()) ]
+        return [ key.key for key in self.values.keys() ]
 
     def has_key(self, key):
         """
         Do we have such key ?
         """
-        return key in self.values
+        return self.values.has_key(key)
     __contains__ = has_key
 

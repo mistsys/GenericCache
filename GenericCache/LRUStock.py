@@ -4,8 +4,6 @@
 ## Email : gael@pilotsystems.net
 ################################################################
 
-from builtins import str
-from builtins import object
 __author__ = "gael@pilotsystems.net"
 __format__ = "plaintext"
 __version__ = "$Id: LRUStock.py 9 2007-03-17 10:32:12Z gael.le-mignot $"
