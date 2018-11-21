@@ -49,7 +49,7 @@ class LRUStock(object):
         if not item in self.keys:
             return
         node = self.keys[item]
-        node.prev.next = node.__next__
+        node.prev.next = node.next
         node.next.prev = node.prev        
         del self.keys[item]
 
@@ -68,7 +68,7 @@ class LRUStock(object):
         """
         Get the head of the list
         """
-        if self.__next__ is self:
+        if self.next is self:
             return None
         return self.next.item
 
@@ -77,8 +77,8 @@ class LRUStock(object):
         Return an iterator to the ordered stock
         """
         item = self
-        while item.__next__ != self:
-            item = item.__next__
+        while item.next != self:
+            item = item.next
             yield item.item
 
     def tolist(self):
@@ -98,10 +98,10 @@ class LRUStock(object):
             node = node.prev
         res = " <- ".join(s)
         s = []
-        node = self.__next__
+        node = self.next
         while node is not self:
             s.append(str(node.item))
-            node = node.__next__
+            node = node.next
         res += " / " + " -> ".join(s)
         return res
 
