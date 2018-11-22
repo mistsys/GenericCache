@@ -11,8 +11,8 @@ __version__ = "$Id: GenericCache.py 19 2009-02-26 15:15:00Z gael.le-mignot $"
 import time
 from threading import RLock
 
-from LRUStock import *
-from decorators import *
+from .LRUStock import *
+from .decorators import *
 
 _marker = []
 
@@ -87,9 +87,9 @@ class GenericCache(dict):
             fail = self.default_fail
         
         key = str(key)
-        if not self.values.has_key(key):
+        if key not in self.values:
             if fail:
-                raise KeyError, key
+                raise KeyError(key)
             return onmissing
 
         value = self.values[key]
@@ -97,7 +97,7 @@ class GenericCache(dict):
         if self._has_expired(value):
             self.remove(key)
             if fail:
-                raise KeyError, key
+                raise KeyError(key)
             return onmissing
         self.lru.update(key)
         return value.value
@@ -199,6 +199,6 @@ class GenericCache(dict):
         """
         Do we have such key ?
         """
-        return self.values.has_key(key)
+        return key in self.values
     __contains__ = has_key
 

@@ -29,20 +29,20 @@ def cached(cache, marshaller = default_marshaller):
         return inner
     return decorator
 
-def verbose(func):
-    """
-    Decorator to print debug stuff - use it only on python >= 2.4
-    """
-    def verbose_func(self, *args, **kwargs):
-        print "  " * self.level, "==> Entering: %s(*%r, **%r)" % (func.__name__, args, kwargs)
-        self.level += 1
-        print "  " * self.level, self.lru
-        res = func(self, *args, **kwargs)
-        print "  " * self.level, self.lru
-        self.level -= 1
-        print "  " * self.level, "==> Leaving %s: %r" % (func.__name__, res)
-        return res
-    return verbose_func
+# def verbose(func):
+#     """
+#     Decorator to print debug stuff - use it only on python >= 2.4
+#     """
+#     def verbose_func(self, *args, **kwargs):
+#         print "  " * self.level, "==> Entering: %s(*%r, **%r)" % (func.__name__, args, kwargs)
+#         self.level += 1
+#         print "  " * self.level, self.lru
+#         res = func(self, *args, **kwargs)
+#         print "  " * self.level, self.lru
+#         self.level -= 1
+#         print "  " * self.level, "==> Leaving %s: %r" % (func.__name__, res)
+#         return res
+#     return verbose_func
 
 def synchronized(func):
     """
